@@ -12,15 +12,28 @@ exports.getAllProducts = async (req, res) => {
 
 // Controller function to add a new product
 exports.addProduct = async (req, res) => {
-  console.log('hi');
+  console.log("hi");
   try {
     // get the last product id from the database
-    const lastProduct = await Product.findOne({}, {}, { sort: { 'productId': -1 } });
+    const lastProduct = await Product.findOne(
+      {},
+      {},
+      { sort: { productId: -1 } }
+    );
     const newProductId = lastProduct ? lastProduct.productId + 1 : 1;
 
     // add the new product with the generated productId
-    const newProduct = await Product.create({ ...req.body, productId: newProductId });
-    res.status(201).json({ success: true, message: "Product added successfully", data: newProduct });
+    const newProduct = await Product.create({
+      ...req.body,
+      productId: newProductId,
+    });
+    res
+      .status(201)
+      .json({
+        success: true,
+        message: "Product added successfully",
+        data: newProduct,
+      });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, message: "Server Error" });
@@ -30,15 +43,17 @@ exports.addProduct = async (req, res) => {
 // Controller function to update an existing product
 exports.updateProduct = async (req, res) => {
   try {
-    const product = await Product.findByIdAndUpdate(
-      req.params.productId,
-      req.body,
-      { new: true }
-    );
+    const product = await Product.findOne({ productId: req.params.productId });
 
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
+
+    // Update the product properties manually
+    Object.assign(product, req.body);
+
+    // Save the updated product
+    await product.save();
 
     res.json(product);
   } catch (err) {

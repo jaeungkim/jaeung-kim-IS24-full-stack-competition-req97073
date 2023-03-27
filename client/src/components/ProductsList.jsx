@@ -1,20 +1,36 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import EditProduct from "./ProductEdit";
+import ProductEdit from "./ProductEdit";
 
 const ProductList = () => {
   const [products, setProducts] = useState([]);
-  const [showModal, setShowModal] = useState(false);
-  const [productToEdit, setProductToEdit] = useState({});
+  const [editingProduct, setEditingProduct] = useState(null);
 
   const handleEditClick = (product) => {
-    setShowModal(true);
-    setProductToEdit(product);
+    setEditingProduct(product);
   };
 
-  const handleModalClose = () => {
-    setShowModal(false);
-    setProductToEdit({});
+  const updateProduct = async (updatedProduct) => {
+    try {
+      const response = await axios.put(
+        `http://localhost:3000/api/products/${updatedProduct.productId}`,
+        updatedProduct
+      );
+
+      // Update the products state with the updated product
+      setProducts((prevProducts) =>
+        prevProducts.map((product) =>
+          product.productId === updatedProduct.productId
+            ? updatedProduct
+            : product
+        )
+      );
+
+      // Hide the edit form
+      setEditingProduct(null);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {
@@ -31,6 +47,13 @@ const ProductList = () => {
 
   return (
     <div className="container mx-auto mt-4">
+      {editingProduct && (
+        <ProductEdit
+          product={editingProduct}
+          updateProduct={updateProduct}
+          onCancel={() => setEditingProduct(null)}
+        />
+      )}
       <table className="table-auto border-collapse border border-gray-500">
         <thead>
           <tr className="bg-gray-200">
@@ -58,7 +81,7 @@ const ProductList = () => {
               <td className="border px-4 py-2">{product.methodology}</td>
               <td className="border px-4 py-2">
                 <button
-                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
                   onClick={() => handleEditClick(product)}
                 >
                   Edit
@@ -68,9 +91,6 @@ const ProductList = () => {
           ))}
         </tbody>
       </table>
-      {showModal && (
-        <EditProduct product={productToEdit} onClose={handleModalClose} />
-      )}
     </div>
   );
 };

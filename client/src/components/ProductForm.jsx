@@ -40,13 +40,17 @@ const ProductForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+
     // check if required fields are not empty
-    if (!product.productName || !product.scrumMasterName || !product.productOwnerName) {
+    if (
+      !product.productName ||
+      !product.scrumMasterName ||
+      !product.productOwnerName
+    ) {
       setMessage({ type: "error", text: "Please fill in all required fields" });
       return;
     }
-  
+
     try {
       await axios.post(
         "http://localhost:3000/api/products/addProduct",
