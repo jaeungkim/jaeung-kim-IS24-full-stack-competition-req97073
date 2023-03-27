@@ -1,37 +1,33 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import EditProduct from "./ProductEdit";
 
-interface Product {
-  productId: number;
-  productName: string;
-  productOwnerName: string;
-  developers: string[];
-  scrumMasterName: string;
-  startDate: string;
-  methodology: "Agile" | "Waterfall";
-}
+const ProductList = () => {
+  const [products, setProducts] = useState([]);
+  const [showModal, setShowModal] = useState(false);
+  const [productToEdit, setProductToEdit] = useState({});
 
-const ProductList: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [error, setError] = useState<Error | null>(null);
+  const handleEditClick = (product) => {
+    setShowModal(true);
+    setProductToEdit(product);
+  };
+
+  const handleModalClose = () => {
+    setShowModal(false);
+    setProductToEdit({});
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get<Product[]>(
-          "http://localhost:8000/api/products"
-        );
+        const response = await axios.get("http://localhost:3000/api/products");
         setProducts(response.data);
-      } catch (error: any) {
-        setError(error);
+      } catch (error) {
+        console.error(error);
       }
     };
     fetchData();
   }, []);
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   return (
     <div className="container mx-auto mt-4">
@@ -45,6 +41,7 @@ const ProductList: React.FC = () => {
             <th className="px-4 py-2">Developer Names</th>
             <th className="px-4 py-2">Start Date</th>
             <th className="px-4 py-2">Methodology</th>
+            <th className="px-4 py-2">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -59,10 +56,21 @@ const ProductList: React.FC = () => {
               </td>
               <td className="border px-4 py-2">{product.startDate}</td>
               <td className="border px-4 py-2">{product.methodology}</td>
+              <td className="border px-4 py-2">
+                <button
+                  className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                  onClick={() => handleEditClick(product)}
+                >
+                  Edit
+                </button>
+              </td>
             </tr>
           ))}
         </tbody>
       </table>
+      {showModal && (
+        <EditProduct product={productToEdit} onClose={handleModalClose} />
+      )}
     </div>
   );
 };

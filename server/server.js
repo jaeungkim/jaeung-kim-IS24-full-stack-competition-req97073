@@ -6,8 +6,8 @@ const Product = require("./app/models/product.model");
 const { faker } = require("@faker-js/faker");
 
 // Configuration
-const port = 8000;
-const corsOptions = { credentials: true, origin: ["http://localhost:3000"] };
+const port = 3000;
+const corsOptions = { credentials: true, origin: ["http://localhost:3030"] };
 const connectionString = "mongodb://localhost:27017/jaeungkim-fullstack-db";
 const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
