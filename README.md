@@ -33,11 +33,11 @@ The following technologies were used in building this web application:
 
 To run this application on your local development machine, follow these steps:
 
-1. Clone the repository
+1. Open Terminal and Clone the repository on the directoy of your choice.
 
-   ```
-   git clone https://github.com/jaeungkim/jaeung-kim-IS24-full-stack-competition-req97073.git
-   ```
+```bash
+git clone https://github.com/jaeungkim/jaeung-kim-IS24-full-stack-competition-req97073.git
+```
 
 ## Usage
 
@@ -45,34 +45,34 @@ To run the application, please follow the steps below:
 
 1. Open a terminal and navigate to the project directory.
 
-```
+```bash
 cd jaeung-kim-IS24-full-stack-competition-req97073
 ```
 
 2. Navigate to the "server" folder and install dependencies. (Back-End)
 
-   ```
-   cd server
-   npm install
-   ```
+```bash
+cd server
+npm install
+```
 
 3. Navigate to the "client" folder and install dependencies. (Front-End)
 
-```
-  cd client
-  npm install
+```bash
+cd client
+npm install
 ```
 
 4. Open separate terminals for the client and server and start the application.
 
 - For the frontend, navigate to the "client" folder and run:
 
-```
+```bash
 npm start
 ```
 
 - For the backend, navigate to the "server" folder and run:
 
-```
+```bash
 npm run dev
 ```
