@@ -17,29 +17,29 @@ const productsController = require("../controllers/products.controller");
  *       properties:
  *         productId:
  *           type: number
- *           description: The unique ID of the product
+ *           description: The unique ID of the product.
  *         productName:
  *           type: string
- *           description: The name of the product
+ *           description: The name of the product.
  *         productOwnerName:
  *           type: string
- *           description: The name of the product owner
+ *           description: The name of the product owner.
  *         developers:
  *           type: array
  *           items:
  *             type: string
- *           description: An array of developer names
+ *           description: An array of developer names working on the product.
  *         scrumMasterName:
  *           type: string
- *           description: The name of the scrum master
+ *           description: The name of the scrum master for the product.
  *         startDate:
  *           type: string
  *           format: date
- *           description: The start date of the project
+ *           description: The start date of the project in ISO 8601 format (YYYY-MM-DD).
  *         methodology:
  *           type: string
  *           enum: [Agile, Waterfall]
- *           description: The methodology used for the project
+ *           description: The development methodology used for the product (either "Agile" or "Waterfall").
  */
 
 module.exports = (app) => {

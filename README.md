@@ -10,9 +10,6 @@ This is a full-stack web application that tracks and manages web applications de
 - [Technologies Used](#technologies-used)
 - [Installation and Setup](#installation-and-setup)
 - [Usage](#usage)
-- [API Documentation](#api-documentation)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -39,6 +36,12 @@ To run this application on your local development machine, follow these steps:
 git clone https://github.com/jaeungkim/jaeung-kim-IS24-full-stack-competition-req97073.git
 ```
 
+2. Install Node.js if it is not already installed on your machine. Node.js is required to run this application.
+
+3. Install MongoDB if it is not already installed on your machine. You can refer to https://www.mongodb.com/docs/manual/installation/
+
+````
+
 ## Usage
 
 To run the application, please follow the steps below:
@@ -47,17 +50,19 @@ To run the application, please follow the steps below:
 
 ```bash
 cd jaeung-kim-IS24-full-stack-competition-req97073
-```
+````
 
 ### Front-End (React)
+
 1. Open Terminal and navigate to the "client" folder and install dependencies. (Front-End)
 
 ```bash
-cd client
+cd jaeung-kim-IS24-full-stack-competition-req97073/client
 npm install
 ```
 
 2. Run the application
+
 ```bash
 npm start
 ```
@@ -69,10 +74,11 @@ Here is the sample image at localhost
 ![alt text](/client/src/assets/sample.png)
 
 ### Back-End (Node)
+
 1. Open Separate Terminal, navigate to the "server" folder and install dependencies. (Back-End)
 
 ```bash
-cd server
+cd jaeung-kim-IS24-full-stack-competition-req97073/server
 npm install
 ```
 

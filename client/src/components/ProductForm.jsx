@@ -155,10 +155,7 @@ const ProductForm = () => {
     }
 
     try {
-      await axios.post(
-        "http://localhost:3000/api/product/addProduct",
-        product
-      );
+      await axios.post("http://localhost:3000/api/product/addProduct", product);
       setMessage({ type: "success", text: "Product added successfully!" });
       setProduct({
         productName: "",
