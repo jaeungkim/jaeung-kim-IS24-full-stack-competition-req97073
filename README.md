@@ -73,6 +73,10 @@ npm start
 
 Now, you should be able to see the front end application at http://localhost:3030/
 
+Here is the sample image at localhost
+
+![alt text](/client/src/assets/sample.png)
+
 - For the backend, navigate to the "server" folder and run:
 
 ```bash
@@ -84,10 +88,14 @@ Faker.js will automatically populate your mongodb database with 40 products.
 It will display
 
 ```bash
-[nodemon] restarting due to changes...
+[nodemon] 2.0.20
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,json
 [nodemon] starting `node server.js`
 Listening on port 3000
 Successfully connected to MongoDB
+Added new products
 ```
 
 Upon Successful connection.
