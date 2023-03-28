@@ -40,8 +40,6 @@ git clone https://github.com/jaeungkim/jaeung-kim-IS24-full-stack-competition-re
 
 3. Install MongoDB if it is not already installed on your machine. You can refer to https://www.mongodb.com/docs/manual/installation/
 
-````
-
 ## Usage
 
 To run the application, please follow the steps below:
