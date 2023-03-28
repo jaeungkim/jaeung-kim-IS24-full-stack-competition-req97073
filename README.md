@@ -65,7 +65,7 @@ Now, you should be able to see the front end application at http://localhost:303
 
 Here is the sample image at localhost
 
-![alt text](/client/src/assets/sample.png)
+![alt text](/client/src/assets/frontend.png)
 
 ### Back-End (Node)
 
@@ -101,4 +101,4 @@ Now, you should be able to see the back end swagger documentation at http://loca
 
 Here is the sample image at localhost
 
-![alt text](/client/src/assets/sample2.png)
+![alt text](/client/src/assets/swagger.png)
