@@ -1,5 +1,47 @@
 const productsController = require("../controllers/products.controller");
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Product:
+ *       type: object
+ *       required:
+ *         - productId
+ *         - productName
+ *         - productOwnerName
+ *         - developers
+ *         - scrumMasterName
+ *         - startDate
+ *         - methodology
+ *       properties:
+ *         productId:
+ *           type: number
+ *           description: The unique ID of the product
+ *         productName:
+ *           type: string
+ *           description: The name of the product
+ *         productOwnerName:
+ *           type: string
+ *           description: The name of the product owner
+ *         developers:
+ *           type: array
+ *           items:
+ *             type: string
+ *           description: An array of developer names
+ *         scrumMasterName:
+ *           type: string
+ *           description: The name of the scrum master
+ *         startDate:
+ *           type: string
+ *           format: date
+ *           description: The start date of the project
+ *         methodology:
+ *           type: string
+ *           enum: [Agile, Waterfall]
+ *           description: The methodology used for the project
+ */
+
 module.exports = (app) => {
   // Set headers for CORS and caching
   app.use((req, res, next) => {
@@ -13,24 +55,79 @@ module.exports = (app) => {
     next();
   });
 
-  // Route to get all products
+  /**
+   * @swagger
+   * /api/products:
+   *   get:
+   *     summary: Retrieve a list of products
+   *     tags: [Products]
+   *     responses:
+   *       200:
+   *         description: A list of products
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 $ref: '#/components/schemas/Product'
+   */
+
   app.get("/api/products", productsController.getAllProducts);
 
-  // Route to add a product
+  /**
+   * @swagger
+   * /api/products/addProduct:
+   *   post:
+   *     summary: Add a new product
+   *     tags: [Products]
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/Product'
+   *     responses:
+   *       201:
+   *         description: Product added successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Product'
+   *       500:
+   *         description: Server error
+   */
   app.post("/api/products/addProduct", productsController.addProduct);
 
-  // Route to update a product by ID
+  /**
+   * @swagger
+   * /api/products/{productId}:
+   *   put:
+   *     summary: Update a product by ID
+   *     tags: [Products]
+   *     parameters:
+   *       - in: path
+   *         name: productId
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: The product ID
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/Product'
+   *     responses:
+   *       200:
+   *         description: Product updated successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Product'
+   *       404:
+   *         description: Product not found
+   *       500:
+   *         description: Server error
+   */
   app.put("/api/products/:productId", productsController.updateProduct);
-
-  // Route to get all products by Scrum Master name
-  app.get(
-    "/api/products/scrumMaster/:name",
-    productsController.getProductsByScrumMaster
-  );
-
-  // Route to search products by developer name
-  app.get(
-    "/api/products/developer/:developerName",
-    productsController.searchProductsByDeveloper
-  );
 };

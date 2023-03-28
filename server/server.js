@@ -4,6 +4,8 @@ const cors = require("cors");
 const db = require("./app/models");
 const Product = require("./app/models/product.model");
 const { faker } = require("@faker-js/faker");
+const swaggerUi = require("swagger-ui-express");
+const swaggerJsdoc = require("swagger-jsdoc");
 
 // Configuration
 const port = 3000;
@@ -11,11 +13,33 @@ const corsOptions = { credentials: true, origin: ["http://localhost:3030"] };
 const connectionString = "mongodb://localhost:27017/jaeungkim-fullstack-db";
 const mongoOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "jaeungkim-fullstack API",
+      version: "1.0.0",
+      description: "API documentation for jaekim's is24-fullstack competition application",
+    },
+    servers: [
+      {
+        url: "http://localhost:3000",
+      },
+    ],
+  },
+  apis: ["./app/routes/products.routes.js"],
+};
+
+const swaggerDocs = swaggerJsdoc(swaggerOptions);
+
 // Create and configure a new Express app instance
 const app = express();
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Swagger setup
+app.use("/api/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // Connect to the MongoDB database and seed if necessary
 async function connectToDatabase() {

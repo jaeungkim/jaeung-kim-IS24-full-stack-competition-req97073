@@ -33,7 +33,7 @@ const Home = () => {
             }`}
             onClick={() => handleTabClick("productForm")}
           >
-            Add Product
+            Add New Product
           </button>
         </div>
         {activeTab === "productList" ? <ProductList /> : <ProductForm />}

@@ -4,7 +4,7 @@ const Product = require("../models/product.model");
 exports.getAllProducts = async (req, res) => {
   try {
     const products = await Product.find();
-    res.json(products);
+    res.status(200).json(products);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -12,9 +12,7 @@ exports.getAllProducts = async (req, res) => {
 
 // Controller function to add a new product
 exports.addProduct = async (req, res) => {
-  console.log("hi");
   try {
-    // get the last product id from the database
     const lastProduct = await Product.findOne(
       {},
       {},
@@ -22,64 +20,37 @@ exports.addProduct = async (req, res) => {
     );
     const newProductId = lastProduct ? lastProduct.productId + 1 : 1;
 
-    // add the new product with the generated productId
     const newProduct = await Product.create({
       ...req.body,
       productId: newProductId,
     });
-    res
-      .status(201)
-      .json({
-        success: true,
-        message: "Product added successfully",
-        data: newProduct,
-      });
+    res.status(201).json({
+      success: true,
+      message: "Product added successfully",
+      data: newProduct,
+    });
   } catch (error) {
-    console.log(error);
-    res.status(500).json({ success: false, message: "Server Error" });
+    res.status(500).json({ success: false, message: error.message });
   }
 };
 
 // Controller function to update an existing product
 exports.updateProduct = async (req, res) => {
   try {
-    const product = await Product.findOne({ productId: req.params.productId });
+    const updatedProduct = await Product.findOneAndUpdate(
+      { productId: req.params.productId },
+      req.body,
+      { new: true }
+    );
 
-    if (!product) {
-      return res.status(404).json({ message: "Product not found" });
+    if (!updatedProduct) {
+      return res
+        .status(404)
+        .json({ success: false, message: "Product not found" });
     }
 
-    // Update the product properties manually
-    Object.assign(product, req.body);
-
-    // Save the updated product
-    await product.save();
-
-    res.json(product);
+    res.status(200).json({ success: true, data: updatedProduct });
   } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-// Controller function to get all products by Scrum Master name
-exports.getProductsByScrumMaster = async (req, res) => {
-  try {
-    const { name } = req.params;
-    const products = await Product.find({ scrumMasterName: name });
-    const totalProducts = products.length;
-    res.json({ products, totalProducts });
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-// Controller function to search products by developer name
-exports.searchProductsByDeveloper = async (req, res) => {
-  try {
-    const developerName = req.params.developerName;
-    const products = await Product.find({ developers: developerName });
-    res.json(products);
-  } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ success: false, message: err.message });
   }
 };
