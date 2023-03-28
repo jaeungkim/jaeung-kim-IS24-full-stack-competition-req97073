@@ -71,8 +71,12 @@ npm install
 npm start
 ```
 
+Now, you should be able to see the front end application at http://localhost:3030/
+
 - For the backend, navigate to the "server" folder and run:
 
 ```bash
 npm run dev
 ```
+
+Now, you should be able to see the back end swagger documentation at http://localhost:3000/api/api-docs
