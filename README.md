@@ -49,24 +49,15 @@ To run the application, please follow the steps below:
 cd jaeung-kim-IS24-full-stack-competition-req97073
 ```
 
-2. Navigate to the "server" folder and install dependencies. (Back-End)
-
-```bash
-cd server
-npm install
-```
-
-3. Navigate to the "client" folder and install dependencies. (Front-End)
+### Front-End (React)
+1. Open Terminal and navigate to the "client" folder and install dependencies. (Front-End)
 
 ```bash
 cd client
 npm install
 ```
 
-4. Open separate terminals for the client and server and start the application.
-
-- For the frontend, navigate to the "client" folder and run:
-
+2. Run the application
 ```bash
 npm start
 ```
@@ -77,7 +68,15 @@ Here is the sample image at localhost
 
 ![alt text](/client/src/assets/sample.png)
 
-- For the backend, navigate to the "server" folder and run:
+### Back-End (Node)
+1. Open Separate Terminal, navigate to the "server" folder and install dependencies. (Back-End)
+
+```bash
+cd server
+npm install
+```
+
+- Run the Application
 
 ```bash
 npm run dev
@@ -85,7 +84,7 @@ npm run dev
 
 Faker.js will automatically populate your mongodb database with 40 products.
 
-It will display
+It will display the following upon successful connection
 
 ```bash
 [nodemon] 2.0.20
@@ -97,7 +96,5 @@ Listening on port 3000
 Successfully connected to MongoDB
 Added new products
 ```
-
-Upon Successful connection.
 
 Now, you should be able to see the back end swagger documentation at http://localhost:3000/api/api-docs
