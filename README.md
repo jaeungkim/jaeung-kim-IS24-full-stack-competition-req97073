@@ -1,9 +1,4 @@
 # Jaeung Kim - IS24 - FULL STACK COMPEITITION - REQ97073
-
-# BC Government Web Applications Management
-
-This is a full-stack web application that tracks and manages web applications developed by the Province of BC. It is part of the code challenge for the IS-24 Full Stack Developer Position.
-
 ## Table of Contents
 
 - [Introduction](#introduction)
