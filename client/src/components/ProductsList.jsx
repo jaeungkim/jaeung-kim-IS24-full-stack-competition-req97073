@@ -78,6 +78,8 @@ const ProductList = () => {
     setFilteredProducts(filtered);
   }, [scrumMasterSearchText, developerSearchText, products]);
 
+  const totalProductsCount = filteredProducts.length;
+
   return (
     <div className="container mx-auto mt-4">
       {apiError && (
@@ -96,7 +98,9 @@ const ProductList = () => {
         </div>
       )}
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-lg font-bold mb-4">Product List</h2>
+        <p className="text-lg font-bold">
+          Total Number of Products: {totalProductsCount}
+        </p>
         <div className="flex justify-between items-center mb-4">
           <div className="flex">
             <input
