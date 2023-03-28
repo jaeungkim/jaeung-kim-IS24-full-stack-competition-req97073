@@ -1,4 +1,5 @@
-# Jaeung Kim - IS24 - FULL STACK COMPEITITION - REQ97073
+## Jaeung Kim - IS24 - FULL STACK COMPEITITION - REQ97073
+
 ## Table of Contents
 
 - [Introduction](#introduction)
@@ -43,7 +44,7 @@ To run the application, please follow the steps below:
 
 ```bash
 cd jaeung-kim-IS24-full-stack-competition-req97073
-````
+```
 
 ### Front-End (React)
 
