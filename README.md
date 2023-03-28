@@ -79,4 +79,17 @@ Now, you should be able to see the front end application at http://localhost:303
 npm run dev
 ```
 
+Faker.js will automatically populate your mongodb database with 40 products.
+
+It will display
+
+```bash
+[nodemon] restarting due to changes...
+[nodemon] starting `node server.js`
+Listening on port 3000
+Successfully connected to MongoDB
+```
+
+Upon Successful connection.
+
 Now, you should be able to see the back end swagger documentation at http://localhost:3000/api/api-docs
