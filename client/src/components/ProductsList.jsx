@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
+// The ProductList component displays a list of products with their details
 const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  const [editingProduct, setEditingProduct] = useState(null);
-  const [scrumMasterSearchText, setScrumMasterSearchText] = useState("");
-  const [developerSearchText, setDeveloperSearchText] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [apiError, setApiError] = useState(false);
-  const [updateApiError, setUpdateApiError] = useState(false);
+  // State management for various properties
+  const [products, setProducts] = useState([]); // List of products
+  const [editingProduct, setEditingProduct] = useState(null); // Product being edited
+  const [scrumMasterSearchText, setScrumMasterSearchText] = useState(""); // Scrum master search text
+  const [developerSearchText, setDeveloperSearchText] = useState(""); // Developer search text
+  const [filteredProducts, setFilteredProducts] = useState([]); // Filtered list of products
+  const [apiError, setApiError] = useState(false); // API error flag
 
+  // Handles clicking the edit button for a product
   const handleEditClick = (product) => {
     setEditingProduct(product);
   };
 
+  // Updates a product by making a PUT request to the API
   const updateProduct = async (updatedProduct) => {
     try {
       const response = await axios.put(
         `http://localhost:3000/api/product/${updatedProduct.productId}`,
         updatedProduct
       );
-
-      // Update the products state with the updated product
       setProducts((prevProducts) =>
         prevProducts.map((product) =>
           product.productId === updatedProduct.productId
@@ -29,24 +30,15 @@ const ProductList = () => {
             : product
         )
       );
-
-      // Hide the edit form
       setEditingProduct(null);
-      setUpdateApiError(false);
+      setApiError(false);
     } catch (error) {
       console.error(error);
-      setUpdateApiError(true);
+      setApiError(true);
     }
   };
 
-  const handleScrumMasterSearchTextChange = (e) => {
-    setScrumMasterSearchText(e.target.value);
-  };
-
-  const handleDeveloperSearchTextChange = (e) => {
-    setDeveloperSearchText(e.target.value);
-  };
-
+  // Fetches products data on component mount
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -61,6 +53,7 @@ const ProductList = () => {
     fetchData();
   }, []);
 
+  // Filters the list of products based on search criteria
   useEffect(() => {
     const filtered = products.filter((product) => {
       const scrumMasterMatch =
@@ -80,20 +73,14 @@ const ProductList = () => {
 
   const totalProductsCount = filteredProducts.length;
 
+  // Renders the component UI
   return (
     <div className="container mx-auto mt-4">
       {apiError && (
         <div className="bg-red-200 p-4 mb-4 border-l-4 border-red-500 text-red-700">
           <p>
-            Error: Unable to fetch data from the API. Please try again later.
-          </p>
-        </div>
-      )}
-      {updateApiError && (
-        <div className="bg-yellow-200 p-4 mb-4 border-l-4 border-yellow-500 text-yellow-700">
-          <p>
-            Error: Unable to update the product. Unable to fetch data from the
-            API. Please try again later.
+            Error: Unable to fetch or update data from the API. Please try again
+            later.
           </p>
         </div>
       )}
@@ -107,14 +94,14 @@ const ProductList = () => {
               type="text"
               placeholder="Search by Scrum Master"
               value={scrumMasterSearchText}
-              onChange={handleScrumMasterSearchTextChange}
+              onChange={(e) => setScrumMasterSearchText(e.target.value)}
               className="border px-2 py-1 rounded-lg mr-2 w-48 sm:w-auto"
             />
             <input
               type="text"
               placeholder="Search by Developer"
               value={developerSearchText}
-              onChange={handleDeveloperSearchTextChange}
+              onChange={(e) => setDeveloperSearchText(e.target.value)}
               className="border px-2 py-1 rounded-lg w-48 sm:w-auto"
             />
           </div>
@@ -127,7 +114,7 @@ const ProductList = () => {
               <th className="px-4 py-2">Product Number</th>
               <th className="px-4 py-2">Product Name</th>
               <th className="px-4 py-2">Scrum Master</th>
-              <th className="px-4 py-2 ">Product Owner</th>
+              <th className="px-4 py-2">Product Owner</th>
               <th className="px-4 py-2">Developer Names</th>
               <th className="px-4 py-2">Start Date</th>
               <th className="px-4 py-2">Methodology</th>
@@ -228,7 +215,6 @@ const ProductList = () => {
                     product.startDate && product.startDate.slice(0, 10)
                   )}
                 </td>
-
                 <td className="border px-4 py-2">
                   {editingProduct &&
                   editingProduct.productId === product.productId ? (
@@ -298,5 +284,4 @@ const ProductList = () => {
     </div>
   );
 };
-
 export default ProductList;

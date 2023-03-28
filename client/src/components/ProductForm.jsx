@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+// InputField component to handle input fields
 const InputField = ({
   label,
   id,
@@ -46,110 +47,90 @@ const InputField = ({
     </div>
   );
 };
+
 const ProductForm = () => {
-  const [numDevelopers, setNumDevelopers] = useState(0);
-  const [product, setProduct] = useState({
+  // Initial state for the product object
+  const initialProduct = {
     productName: "",
     scrumMasterName: "",
     productOwnerName: "",
     developers: "",
     startDate: "",
     methodology: "",
-  });
-  const [errors, setErrors] = useState({
+  };
+
+  // Initial state for errors object
+  const initialErrors = {
     productName: "",
     scrumMasterName: "",
     productOwnerName: "",
     startDate: "",
     methodology: "",
-  });
+    developers: "",
+  };
+
+  // State for number of developers
+  const [numDevelopers, setNumDevelopers] = useState(0);
+  // State for the product object
+  const [product, setProduct] = useState(initialProduct);
+  // State for errors object
+  const [errors, setErrors] = useState(initialErrors);
+  // State for messages
   const [message, setMessage] = useState({ type: "", text: "" });
 
+  // Event handler for input fields change
   const handleChange = (e) => {
     const { id, value } = e.target;
     setProduct((prevProduct) => ({ ...prevProduct, [id]: value }));
   };
 
+  // Event handler for developers input field change
   const handleDevelopersChange = (e) => {
     const { value } = e.target;
     const developers = value.split(",").map((developer) => developer.trim());
     if (developers.length > 5) {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        developers: "No more than 5 developers are allowed",
-      }));
+      setError("developers", "No more than 5 developers are allowed");
     } else {
-      setErrors((prevErrors) => ({
-        ...prevErrors,
-        developers: "",
-      }));
+      setError("developers", "");
     }
     setProduct((prevProduct) => ({ ...prevProduct, developers: value }));
     setNumDevelopers(developers.length);
   };
 
-  const validateForm = () => {
-    const errorsCopy = { ...errors };
-
-    // check if required fields are not empty
-    if (!product.productName) {
-      errorsCopy.productName = "Product name is required";
-    } else {
-      errorsCopy.productName = "";
-    }
-
-    if (!product.scrumMasterName) {
-      errorsCopy.scrumMasterName = "Scrum Master name is required";
-    } else {
-      errorsCopy.scrumMasterName = "";
-    }
-
-    if (!product.productOwnerName) {
-      errorsCopy.productOwnerName = "Product Owner name is required";
-    } else {
-      errorsCopy.productOwnerName = "";
-    }
-
-    if (!product.startDate) {
-      errorsCopy.startDate = "Start date is required";
-    } else {
-      errorsCopy.startDate = "";
-    }
-
-    if (!product.methodology) {
-      errorsCopy.methodology = "Methodology is required";
-    } else {
-      errorsCopy.methodology = "";
-    }
-
-    if (product.developers.trim() === "") {
-      errorsCopy.developers = "Developers are required";
-    } else {
-      errorsCopy.developers = "";
-    }
-
-    setErrors(errorsCopy);
-
-    // return true if there are no errors
-    return Object.values(errorsCopy).every((error) => error === "");
+  // Function to set errors for specific fields
+  const setError = (field, error) => {
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [field]: error,
+    }));
   };
 
+  // Function to validate the form
+  const validateForm = () => {
+    let valid = true;
+
+    Object.entries(product).forEach(([key, value]) => {
+      if (!value && key !== "developers") {
+        setError(key, `${key} is required`);
+        valid = false;
+      } else {
+        setError(key, "");
+      }
+    });
+
+    if (product.developers.trim() === "") {
+      setError("developers", "Developers are required");
+      valid = false;
+    }
+
+    return valid;
+  };
+
+  // Event handler for form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // validate form
     if (!validateForm()) {
-      return;
-    }
-
-    // check if required fields are not empty
-    if (
-      !product.productName ||
-      !product.scrumMasterName ||
-      !product.productOwnerName ||
-      !product.startDate ||
-      !product.methodology
-    ) {
       setMessage({ type: "error", text: "Please fill in all required fields" });
       return;
     }
@@ -157,26 +138,16 @@ const ProductForm = () => {
     try {
       await axios.post("http://localhost:3000/api/product/addProduct", product);
       setMessage({ type: "success", text: "Product added successfully!" });
-      setProduct({
-        productName: "",
-        scrumMasterName: "",
-        productOwnerName: "",
-        developers: "",
-        startDate: "",
-        methodology: "",
-      });
-      setErrors({
-        productName: "",
-        scrumMasterName: "",
-        productOwnerName: "",
-        startDate: "",
-        methodology: "",
-      });
+      setProduct(initialProduct);
+      setErrors(initialErrors);
     } catch (error) {
       if (error.response) {
         setMessage({ type: "error", text: error.response.data.message });
       } else {
-        setMessage({ type: "error", text: "Failed to add product" });
+        setMessage({
+          type: "error",
+          text: "Failed to add product. API is not working.",
+        });
       }
     }
   };
