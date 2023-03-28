@@ -7,7 +7,6 @@ This is a full-stack web application that tracks and manages web applications de
 ## Table of Contents
 
 - [Introduction](#introduction)
-- [Requirements](#requirements)
 - [Technologies Used](#technologies-used)
 - [Installation and Setup](#installation-and-setup)
 - [Usage](#usage)
@@ -21,26 +20,14 @@ The BC Government Ministry of Citizens' Services Information Management Branch (
 
 This application provides a simple way to display, create and edit information related to these web applications. The user base for this application will include a wide array of technical skills, therefore making this application as simple as possible to use is being stressed by the IMB Senior Leadership Team (SLT).
 
-## Requirements
-
-To move forward to the next part of the competition, the following requirements must be met:
-
-- GitHub Repository
-- Modern Backend API Framework
-- BONUS Swagger Documentation
-- Modern Frontend Web Application Framework
-- 3 user stories providing basic functionality
-- BONUS 2 user stories providing a search for product resource names
-- Basic Documentation on how to effortlessly run your solution components on a local development machine
-
 ## Technologies Used
 
 The following technologies were used in building this web application:
 
-- Backend: [insert your choice of modern backend API framework here]
-- Frontend: [insert your choice of modern frontend web application framework here]
-- Database: [insert the type of database used, if any]
-- Documentation: [insert the documentation tool used, if any]
+- Backend: Node.js, Express.js, Faker.js,
+- Frontend: React, Tailwind CSS
+- Database: MongoDB
+- Documentation: Swagger
 
 ## Installation and Setup
 
@@ -48,38 +35,44 @@ To run this application on your local development machine, follow these steps:
 
 1. Clone the repository
 
-   ```bash
-   git clone https://github.com/[YOUR_GITHUB_USERNAME]/[YOUR_REPO_NAME].git
-
    ```
-
-2. [Insert any additional installation steps here]
+   git clone https://github.com/jaeungkim/jaeung-kim-IS24-full-stack-competition-req97073.git
+   ```
 
 ## Usage
 
-To run the application, follow these steps:
+To run the application, please follow the steps below:
 
-1. Open a terminal and navigate to the project directory
-   bash
+1. Open a terminal and navigate to the project directory.
 
 ```
-cd [YOUR_REPO_NAME]
+cd jaeung-kim-IS24-full-stack-competition-req97073
 ```
 
-2. Run the backend server
-   `[insert the command to start the backend server here]`
+2. Navigate to the "server" folder and install dependencies. (Back-End)
 
-3. Run the frontend server
+   ```
+   cd server
+   npm install
+   ```
 
-`[insert the command to start the frontend server here]` 4. Open a web browser and navigate to http://localhost:3000
-`[Insert any additional usage instructions here]`
+3. Navigate to the "client" folder and install dependencies. (Front-End)
 
-## API Documentation
+```
+  cd client
+  npm install
+```
 
-API documentation is available through Swagger at http://localhost:3000/api/api-docs. This allows a developer with no knowledge of your Web Application API to integrate with the endpoints that you have developed.
+4. Open separate terminals for the client and server and start the application.
 
-Contributing
-[Insert instructions for contributing to the project here]
+- For the frontend, navigate to the "client" folder and run:
 
-License
-[Insert the license information for your project here]
+```
+npm start
+```
+
+- For the backend, navigate to the "server" folder and run:
+
+```
+npm run dev
+```
