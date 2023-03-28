@@ -76,7 +76,7 @@ cd server
 npm install
 ```
 
-- Run the Application
+2. Run the Application
 
 ```bash
 npm run dev
@@ -98,3 +98,7 @@ Added new products
 ```
 
 Now, you should be able to see the back end swagger documentation at http://localhost:3000/api/api-docs
+
+Here is the sample image at localhost
+
+![alt text](/client/src/assets/sample2.png)
