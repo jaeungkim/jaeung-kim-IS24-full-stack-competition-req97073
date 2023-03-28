@@ -12,7 +12,7 @@
     }
   ],
   "paths": {
-    "/api/products": {
+    "/api/product": {
       "get": {
         "tags": ["Products"],
         "summary": "Get all products",
@@ -60,7 +60,7 @@
         }
       }
     },
-    "/api/products/{productId}": {
+    "/api/product/{productId}": {
       "put": {
         "tags": ["Products"],
         "summary": "Update a product",
@@ -98,7 +98,7 @@
         }
       }
     },
-    "/api/products/scrumMaster/{name}": {
+    "/api/product/scrumMaster/{name}": {
       "get": {
         "tags": ["Products"],
         "summary": "Get all products by Scrum Master name",
@@ -138,7 +138,7 @@
         }
       }
     },
-    "/api/products/developer/{developerName}": {
+    "/api/product/developer/{developerName}": {
       "get": {
         "summary": "Search products by developer name",
         "description": "Retrieve a list of products where the specified developer is assigned",

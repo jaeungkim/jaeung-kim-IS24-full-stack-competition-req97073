@@ -19,7 +19,8 @@ const swaggerOptions = {
     info: {
       title: "jaeungkim-fullstack API",
       version: "1.0.0",
-      description: "API documentation for jaekim's is24-fullstack competition application",
+      description:
+        "API documentation for jaekim's is24-fullstack competition application",
     },
     servers: [
       {
@@ -59,16 +60,36 @@ async function connectToDatabase() {
 
 async function seedProducts() {
   const numProducts = 40;
+  const scrumMasters = [
+    "John Smith",
+    "Jane Doe",
+    "Bob Johnson",
+    "Sarah Lee",
+    "Mike Brown",
+  ];
+  const developerNames = [
+    "Alice Smith",
+    "Bob Johnson",
+    "Charlie Brown",
+    "David Lee",
+    "Emily Chen",
+    "Frank Kim",
+    "Grace Lee",
+    "Henry Park",
+    "Isabella Wong",
+    "Jack Lee",
+  ];
   const products = Array.from({ length: numProducts }, (_, i) => ({
     productId: i + 1,
     productName: faker.commerce.productName(),
     productOwnerName: faker.name.fullName(),
-    developers: [
-      faker.name.fullName(),
-      faker.name.fullName(),
-      faker.name.fullName(),
-    ],
-    scrumMasterName: faker.name.fullName(),
+    developers: Array.from(
+      { length: faker.datatype.number({ min: 1, max: 5 }) },
+      () => {
+        return faker.helpers.arrayElement(developerNames);
+      }
+    ),
+    scrumMasterName: faker.helpers.arrayElement(scrumMasters),
     startDate: faker.date.past(),
     methodology: faker.helpers.arrayElement(["Agile", "Waterfall"]),
   }));

@@ -57,7 +57,7 @@ module.exports = (app) => {
 
   /**
    * @swagger
-   * /api/products:
+   * /api/product:
    *   get:
    *     summary: Retrieve a list of products
    *     tags: [Products]
@@ -72,11 +72,39 @@ module.exports = (app) => {
    *                 $ref: '#/components/schemas/Product'
    */
 
-  app.get("/api/products", productsController.getAllProducts);
+  app.get("/api/product", productsController.getAllProducts);
 
   /**
    * @swagger
-   * /api/products/addProduct:
+   * /api/product/{productId}:
+   *   get:
+   *     summary: Retrieve a product by ID
+   *     tags: [Products]
+   *     parameters:
+   *       - in: path
+   *         name: productId
+   *         schema:
+   *           type: integer
+   *         required: true
+   *         description: The product ID
+   *     responses:
+   *       200:
+   *         description: A product object
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Product'
+   *       404:
+   *         description: Product not found
+   *       500:
+   *         description: Server error
+   */
+
+  app.get("/api/product/:productId", productsController.getProductById);
+
+  /**
+   * @swagger
+   * /api/product/addProduct:
    *   post:
    *     summary: Add a new product
    *     tags: [Products]
@@ -96,11 +124,11 @@ module.exports = (app) => {
    *       500:
    *         description: Server error
    */
-  app.post("/api/products/addProduct", productsController.addProduct);
+  app.post("/api/product/addProduct", productsController.addProduct);
 
   /**
    * @swagger
-   * /api/products/{productId}:
+   * /api/product/{productId}:
    *   put:
    *     summary: Update a product by ID
    *     tags: [Products]
@@ -129,5 +157,5 @@ module.exports = (app) => {
    *       500:
    *         description: Server error
    */
-  app.put("/api/products/:productId", productsController.updateProduct);
+  app.put("/api/product/:productId", productsController.updateProduct);
 };

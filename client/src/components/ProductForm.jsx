@@ -35,7 +35,7 @@ const InputField = ({
           <div
             className={`${
               showTooltip ? "visible" : "invisible"
-            } absolute z-10 -mt-3 text-gray-800 bg-gray-100 border border-gray-300 rounded py-1 px-2`}
+            } absolute z-10 text-gray-800 bg-gray-100 border border-gray-300 rounded py-1 px-2`}
             style={{ maxWidth: "200px" }}
           >
             <span>{tooltip}</span>
@@ -47,6 +47,7 @@ const InputField = ({
   );
 };
 const ProductForm = () => {
+  const [numDevelopers, setNumDevelopers] = useState(0);
   const [product, setProduct] = useState({
     productName: "",
     scrumMasterName: "",
@@ -71,7 +72,20 @@ const ProductForm = () => {
 
   const handleDevelopersChange = (e) => {
     const { value } = e.target;
+    const developers = value.split(",").map((developer) => developer.trim());
+    if (developers.length > 5) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        developers: "No more than 5 developers are allowed",
+      }));
+    } else {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        developers: "",
+      }));
+    }
     setProduct((prevProduct) => ({ ...prevProduct, developers: value }));
+    setNumDevelopers(developers.length);
   };
 
   const validateForm = () => {
@@ -142,7 +156,7 @@ const ProductForm = () => {
 
     try {
       await axios.post(
-        "http://localhost:3000/api/products/addProduct",
+        "http://localhost:3000/api/product/addProduct",
         product
       );
       setMessage({ type: "success", text: "Product added successfully!" });
@@ -258,7 +272,10 @@ const ProductForm = () => {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+          className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${
+            numDevelopers > 5 ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={numDevelopers > 5}
         >
           Save
         </button>

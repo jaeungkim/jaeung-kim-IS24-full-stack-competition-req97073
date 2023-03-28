@@ -17,7 +17,7 @@ const ProductList = () => {
   const updateProduct = async (updatedProduct) => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/api/products/${updatedProduct.productId}`,
+        `http://localhost:3000/api/product/${updatedProduct.productId}`,
         updatedProduct
       );
 
@@ -50,7 +50,7 @@ const ProductList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3000/api/products");
+        const { data } = await axios.get("http://localhost:3000/api/product");
         setProducts(data);
         setApiError(false);
       } catch (error) {

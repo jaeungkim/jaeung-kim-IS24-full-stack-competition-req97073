@@ -5,7 +5,9 @@ const Layout = ({ children }) => {
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow py-4">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h1 className="text-xl font-semibold text-gray-700">Jaeung Kim</h1>
+          <h1 className="text-xl font-semibold text-gray-700">
+            Jaeung-Kim-IS24-full-stack-competition-req97073
+          </h1>
         </div>
       </header>
       <main className="flex-grow">

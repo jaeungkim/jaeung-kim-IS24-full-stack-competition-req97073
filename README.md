@@ -1,32 +1,85 @@
 # Jaeung Kim - IS24 - FULL STACK COMPEITITION - REQ97073
 
-A web application for managing products, including creating, viewing, and editing product information.
+# BC Government Web Applications Management
 
-## Prerequisites
+This is a full-stack web application that tracks and manages web applications developed by the Province of BC. It is part of the code challenge for the IS-24 Full Stack Developer Position.
 
-Before you begin, ensure you have the following installed on your local development machine:
+## Table of Contents
 
-- Node.js (v14 or later)
-- npm (v6 or later)
+- [Introduction](#introduction)
+- [Requirements](#requirements)
+- [Technologies Used](#technologies-used)
+- [Installation and Setup](#installation-and-setup)
+- [Usage](#usage)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
-If you need to install Node.js and npm, visit [Node.js website](https://nodejs.org/) and follow the instructions.
+## Introduction
 
-## Getting Started
+The BC Government Ministry of Citizens' Services Information Management Branch (IMB) is currently trying to catalog current modern web applications in GitHub, as well as new products that are coming up in the future. Currently, there are 40 products marked for modernization that need to be cataloged, as well as 3 products that are either actively being developed or in a maintenance lifecycle.
 
-1. Clone the repository to your local machine:
-git clone https://github.com/yourusername/imb-product-management.git
+This application provides a simple way to display, create and edit information related to these web applications. The user base for this application will include a wide array of technical skills, therefore making this application as simple as possible to use is being stressed by the IMB Senior Leadership Team (SLT).
 
-Replace `yourusername` with your GitHub username and `imb-product-management` with your repository name if necessary.
+## Requirements
 
-2. Navigate to the project directory:
-cd imb-product-management
+To move forward to the next part of the competition, the following requirements must be met:
 
-3. Install the required dependencies:
-npm install
+- GitHub Repository
+- Modern Backend API Framework
+- BONUS Swagger Documentation
+- Modern Frontend Web Application Framework
+- 3 user stories providing basic functionality
+- BONUS 2 user stories providing a search for product resource names
+- Basic Documentation on how to effortlessly run your solution components on a local development machine
 
+## Technologies Used
 
-4. Start the development server:
-npm start
+The following technologies were used in building this web application:
 
-This command will start the development server and open your default web browser with the application running at `http://localhost:3000`.
+- Backend: [insert your choice of modern backend API framework here]
+- Frontend: [insert your choice of modern frontend web application framework here]
+- Database: [insert the type of database used, if any]
+- Documentation: [insert the documentation tool used, if any]
 
+## Installation and Setup
+
+To run this application on your local development machine, follow these steps:
+
+1. Clone the repository
+
+   ```bash
+   git clone https://github.com/[YOUR_GITHUB_USERNAME]/[YOUR_REPO_NAME].git
+
+   ```
+
+2. [Insert any additional installation steps here]
+
+## Usage
+
+To run the application, follow these steps:
+
+1. Open a terminal and navigate to the project directory
+   bash
+
+```
+cd [YOUR_REPO_NAME]
+```
+
+2. Run the backend server
+   `[insert the command to start the backend server here]`
+
+3. Run the frontend server
+
+`[insert the command to start the frontend server here]` 4. Open a web browser and navigate to http://localhost:3000
+`[Insert any additional usage instructions here]`
+
+## API Documentation
+
+API documentation is available through Swagger at http://localhost:3000/api/api-docs. This allows a developer with no knowledge of your Web Application API to integrate with the endpoints that you have developed.
+
+Contributing
+[Insert instructions for contributing to the project here]
+
+License
+[Insert the license information for your project here]
