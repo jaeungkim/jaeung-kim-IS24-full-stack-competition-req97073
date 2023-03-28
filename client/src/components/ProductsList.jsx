@@ -5,6 +5,9 @@ import ProductEdit from "./ProductEdit";
 const ProductList = () => {
   const [products, setProducts] = useState([]);
   const [editingProduct, setEditingProduct] = useState(null);
+  const [scrumMasterSearchText, setScrumMasterSearchText] = useState("");
+  const [developerSearchText, setDeveloperSearchText] = useState("");
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   const handleEditClick = (product) => {
     setEditingProduct(product);
@@ -33,6 +36,14 @@ const ProductList = () => {
     }
   };
 
+  const handleScrumMasterSearchTextChange = (e) => {
+    setScrumMasterSearchText(e.target.value);
+  };
+
+  const handleDeveloperSearchTextChange = (e) => {
+    setDeveloperSearchText(e.target.value);
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,6 +56,25 @@ const ProductList = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    let filtered = products;
+    if (scrumMasterSearchText !== "") {
+      filtered = filtered.filter((product) =>
+        product.scrumMasterName
+          .toLowerCase()
+          .includes(scrumMasterSearchText.toLowerCase())
+      );
+    }
+    if (developerSearchText !== "") {
+      filtered = filtered.filter((product) =>
+        product.developers.some((dev) =>
+          dev.toLowerCase().includes(developerSearchText.toLowerCase())
+        )
+      );
+    }
+    setFilteredProducts(filtered);
+  }, [scrumMasterSearchText, developerSearchText, products]);
+
   return (
     <div className="container mx-auto mt-4">
       {editingProduct && (
@@ -54,6 +84,25 @@ const ProductList = () => {
           onCancel={() => setEditingProduct(null)}
         />
       )}
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-lg font-bold">Product List</h2>
+        <div>
+          <input
+            type="text"
+            placeholder="Search by Scrum Master"
+            value={scrumMasterSearchText}
+            onChange={handleScrumMasterSearchTextChange}
+            className="border px-2 py-1 rounded-lg mr-2"
+          />
+          <input
+            type="text"
+            placeholder="Search by Developer"
+            value={developerSearchText}
+            onChange={handleDeveloperSearchTextChange}
+            className="border px-2 py-1 rounded-lg"
+          />
+        </div>
+      </div>
       <table className="table-auto border-collapse border border-gray-500">
         <thead>
           <tr className="bg-gray-200">
@@ -68,7 +117,7 @@ const ProductList = () => {
           </tr>
         </thead>
         <tbody>
-          {products.map((product) => (
+          {filteredProducts.map((product) => (
             <tr key={product.productId} className="hover:bg-gray-100">
               <td className="border px-4 py-2">{product.productId}</td>
               <td className="border px-4 py-2">{product.productName}</td>
